@@ -21,7 +21,9 @@ connection.connect(function(err) {
 function afterConnection() {
     connection.query("SELECT * FROM products", function(err, res) {
         if (err) throw err;
-        console.table(res);
+        const resTab = res.reduce((acc, { id, ...x }) => { acc[id] = x; return acc }, {})
+
+        console.table(resTab);
         purchaseitem();
     });
 }
